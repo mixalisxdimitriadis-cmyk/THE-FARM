@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mastihacare Kids – Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #111936;
+      --cream: #f6f4ef;
+      --text: #171717;
+      --muted: #6f6f6f;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 74px;
+      background: rgba(17, 25, 54, 0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+    }
+
+    .site-header .inner {
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .back-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .page-top {
+      padding-top: 74px;
+    }
+
+    .project-head {
+      background: #fff;
+      border-bottom: 1px solid #ededed;
+      padding: 24px;
+    }
+
+    .project-head .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .project-sub {
+      margin: 10px 0 0;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .project-info {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.8;
+      text-align: right;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #efefef;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .intro-block {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 46px 24px 34px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .intro-block p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #2d2d2d;
+    }
+
+    .intro-meta {
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      background: #fff;
+      color: var(--muted);
+      border-top: 1px solid #efefef;
+      padding: 22px 24px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 991.98px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .intro-block {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .project-info {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .site-header .inner,
+      .project-head,
+      .intro-block,
+      .site-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .gallery-item {
+        aspect-ratio: 1 / 1;
+      }
+      .intro-block p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="INFO.html" aria-label="Back to portfolio">
+        <img src="images/farm logo w.svg" alt="The Farm logo">
+      </a>
+      <a class="back-link" href="INFO.html">Back to portfolio</a>
+    </div>
+  </header>
+
+
+<section class="project-head page-top">
+  <div class="wrap">
+    <div>
+      <h1 class="project-title">Mastihacare Kids</h1>
+      <div class="project-sub">Branding / Packaging / Retail</div>
+    </div>
+
+    <div class="project-info">
+      2025<br>
+      Creative Direction<br>
+      Design & Production
+    </div>
+  </div>
+</section>
+
+<section class="intro-block">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+    nisi ut aliquip ex ea commodo consequat.
+  </p>
+
+  <div class="intro-meta">
+    Duis aute irure dolor in reprehenderit in voluptate velit esse 
+    cillum dolore eu fugiat nulla pariatur.<br><br>
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa 
+    qui officia deserunt mollit anim id est laborum.
+  </div>
+</section>
+
+<section class="gallery-grid">
+
+<div class="gallery-item">
+<img src="images/test 1.webp" alt="">
+</div>
+
+<div class="gallery-item">
+<img src="images/test 2.webp" alt="">
+</div>
+
+<div class="gallery-item">
+<img src="images/test 3.webp" alt="">
+</div>
+
+<div class="gallery-item">
+<img src="images/test 4.webp" alt="">
+</div>
+
+<div class="gallery-item">
+<img src="images/test 5.webp" alt="">
+</div>
+
+<div class="gallery-item">
+<img src="images/test 6.webp" alt="">
+</div>
+
+</section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© The Farm. All rights reserved.</div>
+      <div>Mastihacare Kids Project Page</div>
+    </div>
+  </footer>
+</body>
+</html>
