@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Farm – Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #111936;
+      --cream: #f6f4ef;
+      --text: #171717;
+      --muted: #6f6f6f;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      padding-top: 0;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 92px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      transition: opacity .25s ease;
+      pointer-events: none;
+    }
+
+    .site-header .inner {
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .brand {
+      display: none;
+    }
+
+    .menu-trigger {
+      pointer-events: auto;
+      appearance: none;
+      background: transparent;
+      border: 0;
+      color: #fff;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 8px 6px;
+    }
+
+    .sticky-mini {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      height: 60px;
+      background: rgba(17, 25, 54, 0.97);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transform: translateY(-100%);
+      transition: transform .28s ease;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .sticky-mini.show {
+      transform: translateY(0);
+    }
+
+    .sticky-mini .inner {
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .sticky-brand img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .sticky-menu {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+
+    .hero-cover {
+      position: relative;
+      width: 100%;
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    .hero-cover img {
+      width: 100%;
+      height: min(42vw, 560px);
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .portfolio-section {
+      padding: 0;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .portfolio-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      text-decoration: none;
+      color: #fff;
+      overflow: hidden;
+      background: #efefef;
+    }
+
+    .portfolio-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .portfolio-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0.12) 45%, rgba(0,0,0,0));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .portfolio-meta {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.35s ease;
+    }
+
+    .portfolio-meta h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .portfolio-meta p {
+      margin: 8px 0 0;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .portfolio-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .portfolio-card:hover::after,
+    .portfolio-card:hover .portfolio-meta {
+      opacity: 1;
+    }
+
+    .portfolio-card:hover .portfolio-meta {
+      transform: translateY(0);
+    }
+
+    .about-strip {
+      background: var(--cream);
+      padding: 64px 24px;
+      border-top: 1px solid #ece8de;
+    }
+
+    .about-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .about-wrap h2 {
+      margin: 0 0 14px;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .about-wrap p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.65;
+      color: #333;
+    }
+
+    .about-contact {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .site-footer {
+      background: #fff;
+      color: var(--muted);
+      border-top: 1px solid #efefef;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1199.98px) {
+      .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 991.98px) {
+      .site-header { height: 76px; }
+      .site-header .inner,
+      .sticky-mini .inner { padding: 0 16px; }
+      .hero-cover img { height: 320px; }
+      .about-wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .portfolio-meta h3 { font-size: 20px; }
+      .hero-cover img { height: 240px; }
+      .about-strip { padding: 48px 18px; }
+      .about-wrap h2 { font-size: 32px; }
+      .about-wrap p { font-size: 16px; }
+      .sticky-brand img { height: 28px; }
+    }
+
+    @media (max-width: 575.98px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .hero-cover img { height: 180px; }
+      .site-footer,
+      .about-strip {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <button class="menu-trigger" type="button" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div class="sticky-mini" id="stickyMini">
+    <div class="inner">
+      <a class="sticky-brand" href="#top" aria-label="The Farm home">
+        <img src="images/farm logo w.svg" alt="The Farm logo">
+      </a>
+      <button class="sticky-menu" type="button">Menu</button>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero-cover">
+      <img src="images/cover.jpg" alt="The Farm cover artwork">
+    </section>
+
+    <section id="work" class="portfolio-section">
+
+<div class="portfolio-grid">
+
+<a class="portfolio-card" href="tab01.html">
+  <img src="images/logosinfo/IMG6.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 1</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab02.html">
+  <img src="images/logosinfo/IMG31.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 2</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab03.html">
+  <img src="images/logosinfo/IMG8.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 3</h3><p>Category</p></div>
+</a>
+
+<a class="portfolio-card" href="tab04.html">
+  <img src="images/logosinfo/IMG36.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 4</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab05.html">
+  <img src="images/logosinfo/IMG25.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 5</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab06.html">
+  <img src="images/logosinfo/IMG37.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 6</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab07.html">
+  <img src="images/logosinfo/IMG34.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 7</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab08.html">
+  <img src="images/logosinfo/IMG35.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 8</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab09.html">
+  <img src="images/logosinfo/IMG26.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 9</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab010.html">
+  <img src="images/logosinfo/IMG7.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 10</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab011.html">
+  <img src="images/logosinfo/IMG24.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 11</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab012.html">
+  <img src="images/logosinfo/IMG11.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 12</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab013.html">
+  <img src="images/logosinfo/IMG30.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 13</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab014.html">
+  <img src="images/logosinfo/IMG3.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 14</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab015.html">
+  <img src="images/logosinfo/IMG23.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 15</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab16.html">
+  <img src="images/logosinfo/IMG9.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 16</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab17.html">
+  <img src="images/logosinfo/IMG18.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 17</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab18.html">
+  <img src="images/logosinfo/IMG33.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 18</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab19.html">
+  <img src="images/logosinfo/IMG22.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 19</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab20.html">
+  <img src="images/logosinfo/IMG19.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 20</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab21.html">
+  <img src="images/logosinfo/IMG16.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 21</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab22.html">
+  <img src="images/logosinfo/IMG32.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 22</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab23.html">
+  <img src="images/logosinfo/IMG28.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 23</h3><p>Category</p></div>
+</a>
+<a class="portfolio-card" href="tab24.html">
+  <img src="images/logosinfo/IMG4.jpg" loading="lazy" alt="">
+  <div class="portfolio-meta"><h3>Project 24</h3><p>Category</p></div>
+</a>
+</div>
+
+    <section id="about" class="about-strip">
+      <div class="about-wrap">
+        <div>
+          <h2>The Farm</h2>
+          <p>
+            Creative direction, branding, packaging and visual storytelling.
+            A curated portfolio of selected projects across identity systems,
+            print applications and image-led brand communication.
+          </p>
+        </div>
+
+        <div id="contact" class="about-contact">
+          <strong>Contact</strong><br>
+          S. Politi / Creative Director<br>
+          Athens, Greece<br>
+          +30 694 242 0691<br>
+          smaro.politi@yahoo.gr
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© The Farm. All rights reserved.</div>
+      <div>Branding / Packaging / Editorial / Art Direction</div>
+    </div>
+  </footer>
+  <script>
+    const stickyMini = document.getElementById('stickyMini');
+    const heroCover = document.querySelector('.hero-cover');
+
+    function updateStickyBar() {
+      if (!stickyMini || !heroCover) return;
+      const trigger = heroCover.offsetHeight - 70;
+      if (window.scrollY > trigger) stickyMini.classList.add('show');
+      else stickyMini.classList.remove('show');
+    }
+
+    window.addEventListener('scroll', updateStickyBar, { passive: true });
+    window.addEventListener('resize', updateStickyBar);
+    updateStickyBar();
+  </script>
+</body>
+</html>
