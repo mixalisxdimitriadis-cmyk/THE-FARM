@@ -48,9 +48,21 @@
       padding: 0 24px;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       gap: 20px;
     }
+
+    .header-brand {
+      pointer-events: auto;
+      display: block;
+      line-height: 0;
+    }
+
+  .header-brand img {
+  width: clamp(220px, 26vw, 420px);
+  height: auto;
+  display: block;
+}
 
     .brand {
       display: none;
@@ -122,12 +134,54 @@
       overflow: hidden;
     }
 
-    .hero-cover img {
+.hero-cover img {
       width: 100%;
       height: min(42vw, 560px);
       object-fit: cover;
       object-position: center;
       display: block;
+    }
+
+        .hero-logo {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      width: 30%;
+      max-width: 460px;
+      max-height: 70%;
+      z-index: 3;
+    }
+
+    .hero-logo img {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+@media (max-width: 767.98px) {
+      .hero-logo {
+        width: 45%;
+        max-width: 260px;
+        max-height: 60%;
+        right: 4%;
+      }
+      .hero-logo img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .hero-logo {
+        width: 55%;
+        max-width: 200px;
+        max-height: 50%;
+        right: 4%;
+      }
     }
 
     .portfolio-section {
@@ -269,6 +323,7 @@
       .site-header { height: 76px; }
       .site-header .inner,
       .sticky-mini .inner { padding: 0 16px; }
+      .header-brand img { height: 40px; }
       .hero-cover img { height: 320px; }
       .about-wrap {
         grid-template-columns: 1fr;
@@ -279,6 +334,8 @@
     @media (max-width: 767.98px) {
       .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
       .portfolio-meta h3 { font-size: 20px; }
+      .header-brand img { height: 32px; }
+      .menu-trigger { font-size: 26px; }
       .hero-cover img { height: 240px; }
       .about-strip { padding: 48px 18px; }
       .about-wrap h2 { font-size: 32px; }
@@ -288,6 +345,7 @@
 
     @media (max-width: 575.98px) {
       .portfolio-grid { grid-template-columns: 1fr; }
+      .header-brand img { height: 26px; }
       .hero-cover img { height: 180px; }
       .site-footer,
       .about-strip {
@@ -298,7 +356,7 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
+<header class="site-header">
     <div class="inner">
       <button class="menu-trigger" type="button" aria-label="Open menu">☰</button>
     </div>
@@ -314,8 +372,11 @@
   </div>
 
   <main id="top">
-    <section class="hero-cover">
-      <img src="images/cover.jpg" alt="The Farm cover artwork">
+<section class="hero-cover">
+      <img src="images/coverN1-50.jpg" alt="The Farm cover artwork">
+      <a class="hero-logo" href="#top" aria-label="The Farm home">
+        <img src="images/farm logo w.svg" alt="The Farm logo">
+      </a>
     </section>
 
     <section id="work" class="portfolio-section">
