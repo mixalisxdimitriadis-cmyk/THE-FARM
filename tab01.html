@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mastihacare Kids – Project</title>
+  <title>Nemea Winery – Project</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
- 
- <<style>
+
+  <style>
     :root {
       --navy: #111936;
       --cream: #f6f4ef;
       --text: #171717;
       --muted: #6f6f6f;
+      --logo-col: 150px;
+      --logo-gap: 54px;   /* ← ΕΔΩ, στο πάνω :root */
     }
 
     * { box-sizing: border-box; }
@@ -70,8 +72,8 @@
     .project-head {
       background: #fff;
       border-bottom: 1px solid #ededed;
-      padding-top: 36px;
-      padding-bottom: 28px;
+      padding-top: 16px;
+      padding-bottom: 8px;
     }
 
     .project-head .wrap {
@@ -79,12 +81,33 @@
       margin: 0 auto;
       padding-left: 24px;
       padding-right: 24px;
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 40px;
-      align-items: start;
     }
 
+    /* Λογότυπο + τίτλος: ίδια στήλη πλάτους --logo-col όσο και στο intro-block,
+       ώστε ο τίτλος και το κείμενο να ξεκινούν ΠΑΝΤΑ από το ίδιο σημείο. */
+.project-head-content {
+      display: grid;
+      grid-template-columns: var(--logo-col) 1fr;
+      column-gap: var(--logo-gap);
+      align-items: end;   /* όλα στοιχίζονται στο κάτω μέρος */
+    }
+
+    .project-logo {
+      width: var(--logo-col);
+      height: auto;                 /* όχι πια αναγκαστικό τετράγωνο 150px */
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      transform: translateY(var(--logo-nudge)); /* fine-tune με το μάτι */
+    }
+
+    .project-logo img {
+      width: 100%;
+      height: auto;
+      max-height: var(--logo-col);
+      object-fit: contain;
+      display: block;
+    }
     .project-title {
       margin: 0;
       font-size: clamp(34px, 5vw, 64px);
@@ -93,25 +116,16 @@
     }
 
     .project-sub {
-      margin: 10px 0 0;
+      margin: 4px 0 0;
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
-    .project-info {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.8;
-      text-align: right;
-    }
-
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0;
     }
 
@@ -130,29 +144,23 @@
       display: block;
     }
 
+    /* Το intro-block χρησιμοποιεί την ΙΔΙΑ πρώτη στήλη (--logo-col) σαν "κενό"
+       spacer, ώστε το κείμενο να ξεκινάει ακριβώς κάτω από τον τίτλο. */
     .intro-block {
       max-width: 1200px;
       margin: 0 auto;
-      padding-top: 46px;
-      padding-bottom: 34px;
-      padding-left: 24px;
-      padding-right: 24px;
+      padding: 20px 24px 24px;
       display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 40px;
+      grid-template-columns: var(--logo-col) 1fr;
+      column-gap: var(--logo-gap);
     }
 
     .intro-block p {
       margin: 0;
+      max-width: 840px;      /* πιο απλωτό κείμενο προς τα δεξιά */
       font-size: 18px;
-      line-height: 1.7;
+      line-height: 1.55;
       color: #2d2d2d;
-    }
-
-    .intro-meta {
-      font-size: 14px;
-      line-height: 1.9;
-      color: var(--muted);
     }
 
     .site-footer {
@@ -174,19 +182,18 @@
 
     @media (max-width: 991.98px) {
       .gallery-grid { grid-template-columns: 1fr; }
-      .project-head .wrap {
-        grid-template-columns: 1fr;
-      }
       .intro-block {
         grid-template-columns: 1fr;
         gap: 20px;
       }
-      .project-info {
-        text-align: left;
-      }
     }
 
-    @media (max-width: 575.98px) {
+   @media (max-width: 575.98px) {
+      :root {
+        --logo-col: 60px;
+        --logo-gap: 12px;
+        --logo-nudge: 0px;
+      }
       .site-header .inner,
       .project-head .wrap,
       .intro-block,
@@ -201,16 +208,16 @@
         font-size: 16px;
       }
     }
-</style>
+  </style>
 </head>
 <body>
 
   <header class="site-header">
     <div class="inner">
-      <a class="brand" href="index.html" aria-label=" ">
+      <a class="brand" href="INFO.html" aria-label="Back to portfolio">
         <img src="images/farm logo w.svg" alt="The Farm logo">
       </a>
-      <a class="back-link" href="index.html"></a>
+      <a class="back-link" href="index.html">Back to portfolio</a>
     </div>
   </header>
 
@@ -218,28 +225,29 @@
 
   <section class="project-head">
     <div class="wrap">
-      <div>
-        <h1 class="project-title">NEMEA WINERY</h1>
-        <div class="project-sub">Branding and packaging design for a Greek Winery</div>
-      </div>
-      <div class="project-info">
-        2025<br>
-        Creative Direction<br>
-        Design & Production
+      <div class="project-head-content">
+        <div class="project-logo">
+          <img src="images/logosinfo/IMG6.png" alt="Nemea Winery logo">
+        </div>
+        <div>
+          <h1 class="project-title">NEMEA WINERY</h1>
+          <div class="project-sub">Branding and packaging design for a Greek Winery</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="intro-block">
+    <div></div>
     <p>
-The logo name and design were created using the first letters of each word, resulting in the letters NW. However, it was uniquely tailored to fit the specific category of the winery and ultimately featured a cork opener at the end. The endline aimed to capture the essence of wine culture the joy of life. However, designing the labels posed a challenge, as they were intended for various target groups, necessitating changes in style, color, and design elements.
+      The logo was developed using the initials of the winery’s name, combining the first letters of
+      each word to create the distinctive “NW” monogram. The design was carefully adapted to reflect
+      the winery’s identity, with a corkscrew integrated into the mark as a subtle yet meaningful detail.
+      The tagline was created to embody the spirit of wine culture and celebrate the enjoyment of life.
+      Designing the labels presented a unique challenge, as the products were intended for different
+      target audiences. This required variations in style, color palettes, and graphic elements while
+      maintaining a cohesive brand identity across the entire range.
     </p>
-<div class="intro-meta">
-  <p> </p>
-  <p> </p>
-
-  
-</div>
   </section>
 
   <section class="gallery-grid">
