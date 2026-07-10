@@ -13,7 +13,13 @@
       --text: #171717;
       --muted: #6f6f6f;
       --logo-col: 150px;
-      --logo-gap: 54px;   /* ← ΕΔΩ, στο πάνω :root */
+      --logo-gap: 54px;
+      --logo-nudge: 0px;
+
+      --side-gap: 20px;
+      --media-gap: 20px;
+      --sticky-top: 98px;
+      --parallax-extra: 22%;
     }
 
     * { box-sizing: border-box; }
@@ -24,7 +30,7 @@
       background: #fff;
       color: var(--text);
       font-family: Inter, Arial, Helvetica, sans-serif;
-      overflow-x: hidden;
+      overflow-x: clip;
       scroll-behavior: smooth;
     }
 
@@ -77,28 +83,24 @@
     }
 
     .project-head .wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: var(--side-gap);
+      padding-right: var(--side-gap);
     }
 
-    /* Λογότυπο + τίτλος: ίδια στήλη πλάτους --logo-col όσο και στο intro-block,
-       ώστε ο τίτλος και το κείμενο να ξεκινούν ΠΑΝΤΑ από το ίδιο σημείο. */
-.project-head-content {
+    .project-head-content {
       display: grid;
       grid-template-columns: var(--logo-col) 1fr;
       column-gap: var(--logo-gap);
-      align-items: end;   /* όλα στοιχίζονται στο κάτω μέρος */
+      align-items: end;
     }
 
     .project-logo {
       width: var(--logo-col);
-      height: auto;                 /* όχι πια αναγκαστικό τετράγωνο 150px */
+      height: auto;
       display: flex;
       align-items: flex-end;
       justify-content: flex-start;
-      transform: translateY(var(--logo-nudge)); /* fine-tune με το μάτι */
+      transform: translateY(var(--logo-nudge));
     }
 
     .project-logo img {
@@ -108,6 +110,7 @@
       object-fit: contain;
       display: block;
     }
+
     .project-title {
       margin: 0;
       font-size: clamp(34px, 5vw, 64px);
@@ -115,97 +118,201 @@
       letter-spacing: -0.04em;
     }
 
-    .project-sub {
-      margin: 4px 0 0;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    /* ===== Full-width δίστηλο: κείμενο 1 μέρος, media 3 μέρη ===== */
 
-    .gallery-grid {
+    .project-body {
+      padding: 40px var(--side-gap) 80px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+      grid-template-columns: minmax(18rem, 1fr) minmax(0, 3fr);
+      column-gap: var(--media-gap);
+      align-items: start;
     }
 
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 1 / 1;
+    .project-text {
+      position: sticky;
+      top: var(--sticky-top);
+    }
+
+    .project-text p {
+      margin: 0 0 1.5em;
+      font-size: 19px;          /* μεγαλύτερο κείμενο */
+      line-height: 1.55;
+      color: #111;              /* μαύρο */
+    }
+
+    .text-cats-label {
+      font-weight: 700;
+      font-size: 19px;
+      color: #111;
+      margin: 0 0 4px;
+    }
+
+    .text-cats {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.5;
+      color: #111;
+    }
+
+    /* ===== Δεξιά στήλη media με stacking:
+       κάθε block είναι sticky, οπότε το επόμενο ανεβαίνει
+       και το σκεπάζει καθώς σκρολάρεις. Το λευκό padding-top
+       δημιουργεί το μικρό λευκό κενό ανάμεσά τους. ===== */
+
+    .project-media {
+      min-width: 0;
+    }
+
+    .media-stack {
+      position: sticky;
+      top: var(--sticky-top);
+      background: #fff;
+      padding-top: var(--media-gap);   /* το λευκό κενάκι */
+      margin-top: calc(-1 * var(--media-gap));
+    }
+
+    .media-stack:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .media-stack + .media-stack {
+      margin-top: var(--media-gap);
+    }
+
+    .media-item {
       overflow: hidden;
       background: #efefef;
+      position: relative;
     }
 
-    .gallery-item img {
+    .media-item img,
+    .media-item video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Φαρδιές εικόνες με parallax */
+    .media-wide {
+      aspect-ratio: 16 / 9;
+    }
+
+    .media-wide img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(100% + var(--parallax-extra));
+      object-fit: cover;
+      object-position: center;
+      will-change: transform;
+    }
+
+    /* Ζευγάρι εικόνων δίπλα-δίπλα */
+    .media-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--media-gap);
+    }
+
+    .media-pair .media-item {
+      aspect-ratio: 0.8 / 1;
+    }
+
+    .media-pair .media-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
-      display: block;
     }
 
-    /* Το intro-block χρησιμοποιεί την ΙΔΙΑ πρώτη στήλη (--logo-col) σαν "κενό"
-       spacer, ώστε το κείμενο να ξεκινάει ακριβώς κάτω από τον τίτλο. */
-    .intro-block {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px 24px 24px;
-      display: grid;
-      grid-template-columns: var(--logo-col) 1fr;
-      column-gap: var(--logo-gap);
+    /* Reveal όταν μπαίνει στην οθόνη */
+    .js-inview {
+      clip-path: inset(clamp(30px, 6vw, 100px));
+      transform: scale(0.95);
+      opacity: 0.4;
+      transition:
+        clip-path 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .intro-block p {
-      margin: 0;
-      max-width: 840px;      /* πιο απλωτό κείμενο προς τα δεξιά */
-      font-size: 18px;
-      line-height: 1.55;
-      color: #2d2d2d;
+    .js-inview.is-visible {
+      clip-path: inset(0px);
+      transform: scale(1);
+      opacity: 1;
     }
 
     .site-footer {
+      position: relative;       /* να κάθεται πάνω από τα sticky media */
+      z-index: 10;
       background: #fff;
       color: var(--muted);
       border-top: 1px solid #efefef;
-      padding: 22px 24px;
+      padding: 22px var(--side-gap);
       font-size: 14px;
     }
 
     .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       gap: 20px;
       flex-wrap: wrap;
     }
 
+    /* ===== Responsive ===== */
+
     @media (max-width: 991.98px) {
-      .gallery-grid { grid-template-columns: 1fr; }
-      .intro-block {
+      .project-body {
         grid-template-columns: 1fr;
-        gap: 20px;
+        row-gap: 32px;
+      }
+      .project-text {
+        position: static;
+      }
+      .media-stack {
+        position: static;        /* χωρίς stacking σε στενές οθόνες */
+        padding-top: 0;
+        margin-top: 0;
+      }
+      .media-stack + .media-stack {
+        margin-top: var(--media-gap);
       }
     }
 
-   @media (max-width: 575.98px) {
+    @media (max-width: 575.98px) {
       :root {
         --logo-col: 60px;
         --logo-gap: 12px;
         --logo-nudge: 0px;
+        --media-gap: 12px;
+        --side-gap: 16px;
       }
-      .site-header .inner,
-      .project-head .wrap,
-      .intro-block,
-      .site-footer {
+      .site-header .inner {
         padding-left: 16px;
         padding-right: 16px;
       }
-      .gallery-item {
-        aspect-ratio: 1 / 1;
+      .project-text p,
+      .text-cats,
+      .text-cats-label {
+        font-size: 17px;
       }
-      .intro-block p {
-        font-size: 16px;
+      .media-pair {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js-inview {
+        clip-path: inset(0px);
+        transform: none;
+        opacity: 1;
+        transition: none;
+      }
+      .media-wide img {
+        height: 100%;
+        transform: none !important;
       }
     }
   </style>
@@ -231,38 +338,57 @@
         </div>
         <div>
           <h1 class="project-title">NEMEA WINERY</h1>
-          <div class="project-sub">Branding and packaging design for a Greek Winery</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="intro-block">
-    <div></div>
-    <p>
-      The logo was developed using the initials of the winery’s name, combining the first letters of
-      each word to create the distinctive “NW” monogram. The design was carefully adapted to reflect
-      the winery’s identity, with a corkscrew integrated into the mark as a subtle yet meaningful detail.
-      The tagline was created to embody the spirit of wine culture and celebrate the enjoyment of life.
-      Designing the labels presented a unique challenge, as the products were intended for different
-      target audiences. This required variations in style, color palettes, and graphic elements while
-      maintaining a cohesive brand identity across the entire range.
-    </p>
-  </section>
+  <section class="project-body">
 
-  <section class="gallery-grid">
-    <div class="gallery-item">
-      <img src="images/FINALS/nemea/nemea-winery-packaging.webp" alt="">
+    <!-- Αριστερή στήλη: sticky κείμενο -->
+    <div class="project-text">
+      <p>
+        The logo was developed using the initials of the winery’s name, combining the first letters of
+        each word to create the distinctive “NW” monogram. The design was carefully adapted to reflect
+        the winery’s identity, with a corkscrew integrated into the mark as a subtle yet meaningful detail.
+        The tagline was created to embody the spirit of wine culture and celebrate the enjoyment of life.
+        Designing the labels presented a unique challenge, as the products were intended for different
+        target audiences. This required variations in style, color palettes, and graphic elements while
+        maintaining a cohesive brand identity across the entire range.
+      </p>
+
+      <div class="text-cats-label">Categories</div>
+      <p class="text-cats">Branding and packaging design for a Greek Winery</p>
     </div>
-    <div class="gallery-item">
-      <img src="images/FINALS/nemea/nemea_winery_packaging5.webp" alt="">
+
+    <!-- Δεξιά στήλη: media με stacking -->
+    <div class="project-media">
+
+      <div class="media-stack">
+        <div class="media-item media-wide js-inview js-parallax">
+          <img src="images/FINALS/nemea/nemea-winery-packaging.webp" alt="">
+        </div>
+      </div>
+
+      <div class="media-stack">
+        <div class="media-pair">
+          <div class="media-item js-inview">
+            <img src="images/FINALS/nemea/nemea_winery_packaging5.webp" alt="">
+          </div>
+          <div class="media-item js-inview">
+            <img src="images/FINALS/nemea/nemea-winery-packaging4.webp" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="media-stack">
+        <div class="media-item media-wide js-inview js-parallax">
+          <img src="images/FINALS/nemea/nemea-winery-packaging3.webp" alt="">
+        </div>
+      </div>
+
     </div>
-    <div class="gallery-item">
-      <img src="images/FINALS/nemea/nemea-winery-packaging4.webp" alt="">
-    </div>
-    <div class="gallery-item">
-      <img src="images/FINALS/nemea/nemea-winery-packaging3.webp" alt="">
-    </div>
+
   </section>
 
   <footer class="site-footer">
@@ -271,6 +397,52 @@
       <div>Nemea Winery Project</div>
     </div>
   </footer>
+
+  <script>
+    // ===== Reveal όταν η εικόνα μπαίνει στην οθόνη =====
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.js-inview').forEach((el) => revealObserver.observe(el));
+
+    // ===== Parallax στις φαρδιές εικόνες =====
+    const parallaxItems = document.querySelectorAll('.js-parallax');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function updateParallax() {
+      const vh = window.innerHeight;
+      parallaxItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > vh) return;
+        const progress = (vh - rect.top) / (vh + rect.height);
+        const img = item.querySelector('img');
+        const extra = img.offsetHeight - rect.height;
+        img.style.transform = 'translateY(' + (-extra * progress) + 'px)';
+      });
+    }
+
+    if (!reduceMotion && parallaxItems.length) {
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      updateParallax();
+    }
+  </script>
 
 </body>
 </html>
