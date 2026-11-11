@@ -63,14 +63,6 @@
       display: block;
     }
 
-    .back-link {
-      color: #fff;
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
     .header-spacer {
       height: 74px;
     }
@@ -88,10 +80,7 @@
     }
 
     .project-head-content {
-      display: grid;
-      grid-template-columns: var(--logo-col) 1fr;
-      column-gap: var(--logo-gap);
-      align-items: end;
+      display: block;
     }
 
     .project-logo {
@@ -209,6 +198,24 @@
       will-change: transform;
     }
 
+    /* Λογότυπο μέσα στη στήλη media, ίδια αναλογία με media-wide */
+    .media-logo {
+      aspect-ratio: auto;
+      height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-logo img {
+      position: static;
+      width: auto;
+      height: auto;
+      max-width: 50%;
+      max-height: 50%;
+      object-fit: contain;
+    }
+
     /* Ζευγάρι εικόνων δίπλα-δίπλα */
     .media-pair {
       display: grid;
@@ -321,10 +328,9 @@
 
   <header class="site-header">
     <div class="inner">
-      <a class="brand" href="INFO.html" aria-label="Back to portfolio">
+      <a class="brand" href="index.html" aria-label="Back to portfolio">
         <img src="images/farm logo w.svg" alt="The Farm logo">
       </a>
-      <a class="back-link" href="index.html">Back to portfolio</a>
     </div>
   </header>
 
@@ -333,9 +339,6 @@
   <section class="project-head">
     <div class="wrap">
       <div class="project-head-content">
-        <div class="project-logo">
-          <img src="images/logosinfo/IMG6.png" alt="Nemea Winery logo">
-        </div>
         <div>
           <h1 class="project-title">NEMEA WINERY</h1>
         </div>
@@ -363,6 +366,12 @@
 
     <!-- Δεξιά στήλη: media με stacking -->
     <div class="project-media">
+
+      <div class="media-stack">
+        <div class="media-item media-wide media-logo js-inview">
+          <img src="images/logosinfo/IMG6.png" alt="Nemea Winery logo">
+        </div>
+      </div>
 
       <div class="media-stack">
         <div class="media-item media-wide js-inview js-parallax">
